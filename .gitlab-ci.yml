@@ -1,0 +1,13 @@
+variables:
+  DOCKER_IMAGE_NAME: "test_image"
+  DOCKER_TAG: ${CI_COMMIT_REF_SLUG}
+  DOCKER_REPO: "dsvologzhanin"
+
+stages:
+  - test
+
+unit_tests:
+  image: dsvologzhanin/geekbrains:1.1.1
+  stage: test
+  script:
+  - gradle test
