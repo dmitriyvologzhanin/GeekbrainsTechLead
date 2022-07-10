@@ -1,13 +1,29 @@
-variables:
-  DOCKER_IMAGE_NAME: "test_image"
-  DOCKER_TAG: ${CI_COMMIT_REF_SLUG}
-  DOCKER_REPO: "dsvologzhanin"
+image: gradle:7.4.2-jdk17
 
 stages:
+  - checkstyle
   - test
+  - build
+  - deploy
 
-unit_tests:
-  image: dsvologzhanin/geekbrains:1.1.1
+
+unit_test:
   stage: test
   script:
-  - gradle test
+    - gradle test
+
+checkstyle:
+  stage: checkstyle
+  script:
+    - gradle check
+  allow_failure: true
+
+docker_build:
+  stage: build
+  script:
+    - echo "create docker container"
+
+deploy_to_prod:
+  stage: deploy
+  script:
+    - echo "deploy docker container"
